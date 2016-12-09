@@ -1,20 +1,18 @@
 #N canvas 244 171 1105 560 10;
-#X obj 57 328 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 185 285 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X msg 57 351 192 \$1;
-#X text 32 311 A0 - Temperature;
+#X msg 185 308 192 \$1;
 #X msg 92 137 open 0;
 #X obj 1204 360 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X floatatom 1115 210 5 0 0 0 - - -, f 5;
-#X obj 54 441 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 37 416 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X msg 54 461 197 \$1;
-#X text 39 423 A5 - Luz;
-#X obj 315 283 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X msg 37 436 197 \$1;
+#X obj 350 397 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X msg 315 306 196 \$1;
-#X text 294 266 A4 - microphone;
+#X msg 350 420 196 \$1;
+#X text 329 380 A4 - microphone;
 #N canvas 1 77 735 626 NEOPIXELS 0;
 #X obj 300 97 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
@@ -210,7 +208,7 @@
 #X connect 13 0 9 0;
 #X connect 14 0 10 0;
 #X connect 15 0 18 0;
-#X restore 204 178 pd BUZZER;
+#X restore 290 141 pd BUZZER;
 #X msg 502 137 80;
 #X text 529 137 SENSECOLOR;
 #X text 29 53 https://learn.adafruit.com/circuit-playground-firmata/firmata-extension-reference
@@ -227,7 +225,7 @@
 -1 -1;
 #X msg 752 385 210 1 \, 244 21 0 \, 227 1;
 #X text 772 355 Enable Slide Switch;
-#N canvas 706 348 450 300 ACELL_TAP 0;
+#N canvas 704 347 450 300 ACELL_TAP 0;
 #X msg 30 62 56;
 #X text 57 62 0x38 ACCEL_TAP_STREAM_ON;
 #X msg 34 115 57;
@@ -243,13 +241,13 @@
 #X connect 0 0 9 0;
 #X connect 2 0 10 0;
 #X connect 7 0 11 0;
-#X restore 204 210 pd ACELL_TAP;
+#X restore 202 169 pd ACELL_TAP;
 #X text 941 261 Enable Right Pushbutton;
-#X obj 105 470 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+#X obj 88 445 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 1043 1;
-#X obj 401 380 f;
-#X obj 401 402 + 1;
-#X obj 373 356 t f b;
+#X obj 436 494 f;
+#X obj 436 516 + 1;
+#X obj 408 470 t f b;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array MicIn 500 float 5;
 #A 0 -0.337243 -0.335288 -0.337243 -0.335288 -0.337243 -0.337243 -0.335288
@@ -323,12 +321,12 @@
 -0.337243 -0.337243 -0.335288 -0.335288 -0.335288 -0.337243 -0.337243
 -0.337243 -0.337243 -0.337243 -0.335288 -0.335288 -0.335288;
 #X coords 0 1 500 -1 200 140 1;
-#X restore 477 301 graph;
-#X obj 402 424 mod 500;
-#X obj 373 311 * 2;
-#X obj 373 333 - 1;
-#X obj 373 455 tabwrite MicIn;
-#N canvas 1 77 450 300 ACELL 0;
+#X restore 512 415 graph;
+#X obj 437 538 mod 500;
+#X obj 408 425 * 2;
+#X obj 408 447 - 1;
+#X obj 408 569 tabwrite MicIn;
+#N canvas 368 156 589 396 ACELL 0;
 #X msg 56 65 48;
 #X text 83 65 0x30 ACCEL_READ;
 #X msg 246 81 58;
@@ -338,10 +336,22 @@
 #X obj 56 99 s 0-CP-SYSEX;
 #X obj 246 115 s 0-CP-SYSEX;
 #X obj 247 201 s 0-CP-SYSEX;
+#X obj 52 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8116 1;
+#X obj 52 140 r 0-CP_ACELL_X;
+#X obj 85 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 6691 1;
+#X obj 85 160 r 0-CP_ACELL_Y;
+#X obj 118 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5780 1;
+#X obj 118 184 r 0-CP_ACELL_Z;
 #X connect 0 0 6 0;
 #X connect 2 0 7 0;
 #X connect 3 0 8 0;
-#X restore 207 240 pd ACELL;
+#X connect 10 0 9 0;
+#X connect 12 0 11 0;
+#X connect 14 0 13 0;
+#X restore 299 173 pd ACELL;
 #X obj 718 57 CircuitPlayground 0;
 #X obj 30 173 s 0-CP;
 #X obj 502 159 s 0-CP-SYSEX;
@@ -349,33 +359,72 @@
 #X obj 751 319 s 0-CP;
 #X obj 752 410 s 0-CP;
 #X obj 921 316 s 0-CP;
-#X obj 373 289 r 0-CP_A4;
-#X obj 57 378 s 0-CP;
-#X obj 54 484 s 0-CP;
-#X obj 105 447 r 0-CP_A5;
-#X obj 315 331 s 0-CP;
+#X obj 408 403 r 0-CP_A4;
+#X obj 185 335 s 0-CP;
+#X obj 37 459 s 0-CP;
+#X obj 88 422 r 0-CP_A5;
+#X obj 350 445 s 0-CP;
+#X text 177 266 Todo- apply Steinhart-Hart thermistor equations;
+#X text 22 398 A5 - Luz 0-1;
+#X obj 241 312 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5971 1;
+#X obj 241 289 r 0-CP_A0;
+#X text 179 246 A0 - Temperature 0-1;
+#N canvas 366 155 589 396 CAP 0;
+#X obj 276 212 s 0-CP-SYSEX;
+#X text 328 168 0x40 Read a single capacitive input;
+#X msg 276 186 64 \$1;
+#X obj 193 29 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 7;
+#X text 337 127 (0 \, 1 \, 2 \, 3 \, 6 \, 9 \, 10 \, 12);
+#X obj 193 60 sel 4 5 6 7;
+#X floatatom 277 150 5 0 0 0 - - -, f 5;
+#X msg 140 105 6;
+#X msg 177 104 9;
+#X msg 213 101 10;
+#X msg 244 103 12;
+#X obj 292 336 s 0-CP-SYSEX;
+#X msg 292 296 64 0;
+#X obj 92 251 r 0-CP_CAP_REPLY 12;
+#X floatatom 79 305 5 0 0 0 - - -, f 5;
+#X connect 2 0 0 0;
+#X connect 3 0 5 0;
+#X connect 5 0 7 0;
+#X connect 5 1 8 0;
+#X connect 5 2 9 0;
+#X connect 5 3 10 0;
+#X connect 5 4 6 0;
+#X connect 6 0 2 0;
+#X connect 7 0 6 0;
+#X connect 8 0 6 0;
+#X connect 9 0 6 0;
+#X connect 10 0 6 0;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X restore 365 141 pd CAP;
 #X connect 0 0 1 0;
-#X connect 1 0 46 0;
-#X connect 3 0 39 0;
-#X connect 6 0 7 0;
-#X connect 7 0 47 0;
-#X connect 9 0 10 0;
-#X connect 10 0 49 0;
-#X connect 14 0 40 0;
-#X connect 17 0 21 0;
-#X connect 19 0 22 0;
-#X connect 20 0 39 0;
-#X connect 21 0 42 0;
-#X connect 22 0 44 0;
-#X connect 23 0 24 0;
-#X connect 24 0 43 0;
-#X connect 29 0 30 0;
-#X connect 30 0 33 0;
-#X connect 31 0 36 0;
-#X connect 31 1 29 0;
-#X connect 33 0 29 1;
-#X connect 33 0 36 1;
-#X connect 34 0 35 0;
-#X connect 35 0 31 0;
-#X connect 45 0 34 0;
-#X connect 48 0 28 0;
+#X connect 1 0 44 0;
+#X connect 2 0 37 0;
+#X connect 5 0 6 0;
+#X connect 6 0 45 0;
+#X connect 7 0 8 0;
+#X connect 8 0 47 0;
+#X connect 12 0 38 0;
+#X connect 15 0 19 0;
+#X connect 17 0 20 0;
+#X connect 18 0 37 0;
+#X connect 19 0 40 0;
+#X connect 20 0 42 0;
+#X connect 21 0 22 0;
+#X connect 22 0 41 0;
+#X connect 27 0 28 0;
+#X connect 28 0 31 0;
+#X connect 29 0 34 0;
+#X connect 29 1 27 0;
+#X connect 31 0 27 1;
+#X connect 31 0 34 1;
+#X connect 32 0 33 0;
+#X connect 33 0 29 0;
+#X connect 43 0 32 0;
+#X connect 46 0 26 0;
+#X connect 51 0 50 0;
