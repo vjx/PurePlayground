@@ -1,4 +1,4 @@
-#N canvas 244 171 1105 560 10;
+#N canvas 238 168 1105 560 10;
 #X obj 185 285 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X msg 185 308 192 \$1;
@@ -210,7 +210,6 @@
 #X connect 15 0 18 0;
 #X restore 290 141 pd BUZZER;
 #X msg 502 137 80;
-#X text 529 137 SENSECOLOR;
 #X text 29 53 https://learn.adafruit.com/circuit-playground-firmata/firmata-extension-reference
 ;
 #X obj 750 266 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -242,7 +241,7 @@
 #X restore 202 169 pd ACELL_TAP;
 #X text 941 261 Enable Right Pushbutton;
 #X obj 88 445 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 1043 1;
+-1 -1 0 1;
 #X obj 436 494 f;
 #X obj 436 516 + 1;
 #X obj 408 470 t f b;
@@ -324,7 +323,7 @@
 #X obj 408 425 * 2;
 #X obj 408 447 - 1;
 #X obj 408 569 tabwrite MicIn;
-#N canvas 368 156 589 396 ACELL 0;
+#N canvas 362 153 991 455 ACELL 0;
 #X msg 56 65 48;
 #X text 83 65 0x30 ACCEL_READ;
 #X msg 246 81 58;
@@ -334,21 +333,96 @@
 #X obj 56 99 s 0-CP-SYSEX;
 #X obj 246 115 s 0-CP-SYSEX;
 #X obj 247 201 s 0-CP-SYSEX;
-#X obj 52 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 8116 1;
+#X obj 49 258 vsl 15 128 -19 19 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
 #X obj 52 140 r 0-CP_ACELL_X;
-#X obj 85 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 6691 1;
 #X obj 85 160 r 0-CP_ACELL_Y;
-#X obj 118 207 vsl 15 128 -35 35 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5780 1;
 #X obj 118 184 r 0-CP_ACELL_Z;
+#N canvas 41 216 797 523 VER 0;
+#X obj 376 67 unpack 0 0 0;
+#X obj 109 440 expr sqrt(pow($f1 \, 2) + pow($f2 \, 2) + pow($f3 \,
+2));
+#X obj 367 126 atan;
+#X obj 367 105 expr $f1 / $f2;
+#X obj 400 150 expr if ($f1 > 0 \, 3.14159 \, -3.14159);
+#X obj 367 177 pack 0 0 0;
+#X obj 367 199 expr if ($f3 <= 0 \, $f1 + $f2 \, $f1);
+#X obj 367 221 * -1;
+#X obj 52 289 s \$0-wii-pitch-set;
+#X obj 367 291 s \$0-wii-roll-set;
+#X text 92 342 The pitch and roll are only accurate if there are no
+extra accelerations due to hand movement. We can check if the total
+acceleration is close to gravity and only use pitch and roll in that
+case. The total acceleration is given by:;
+#X obj 41 67 unpack 0 0 0;
+#X obj 52 126 atan;
+#X obj 52 105 expr $f1 / $f2;
+#X obj 84 150 expr if ($f1 > 0 \, 3.14159 \, -3.14159);
+#X obj 52 177 pack 0 0 0;
+#X obj 52 199 expr if ($f3 <= 0 \, $f1 + $f2 \, $f1);
+#X obj 52 221 * -1;
+#X obj 242 406 unpack 0 0 0;
+#X connect 0 0 3 0;
+#X connect 0 0 4 0;
+#X connect 0 2 3 1;
+#X connect 0 2 5 2;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 1;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 11 1 13 0;
+#X connect 11 1 14 0;
+#X connect 11 2 13 1;
+#X connect 11 2 15 2;
+#X connect 12 0 15 0;
+#X connect 13 0 12 0;
+#X connect 14 0 15 1;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 8 0;
+#X connect 18 0 1 0;
+#X connect 18 1 1 1;
+#X connect 18 2 1 2;
+#X restore 324 414 pd VER;
+#X obj 88 258 vsl 15 128 -19 19 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 123 262 vsl 15 128 -19 19 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 543 176 atan;
+#X obj 543 155 expr $f1 / $f2;
+#X obj 576 200 expr if ($f1 > 0 \, 3.14159 \, -3.14159);
+#X obj 543 227 pack 0 0 0;
+#X obj 543 249 expr if ($f3 <= 0 \, $f1 + $f2 \, $f1);
+#X obj 543 271 * -1;
+#X obj 522 54 r 0-CP_ACELL_X;
+#X obj 632 51 r 0-CP_ACELL_Z;
+#X obj 522 76 + 19;
+#X obj 522 98 / 38;
+#X obj 632 82 + 19;
+#X obj 632 104 / 38;
+#X obj 582 305 vsl 15 128 -1 0 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5603 1;
+#X floatatom 490 332 5 0 0 0 - - -, f 5;
 #X connect 0 0 6 0;
 #X connect 2 0 7 0;
 #X connect 3 0 8 0;
-#X connect 10 0 9 0;
-#X connect 12 0 11 0;
-#X connect 14 0 13 0;
+#X connect 16 0 19 0;
+#X connect 17 0 16 0;
+#X connect 18 0 19 1;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 28 0;
+#X connect 21 0 29 0;
+#X connect 22 0 24 0;
+#X connect 23 0 26 0;
+#X connect 24 0 25 0;
+#X connect 25 0 18 0;
+#X connect 25 0 17 0;
+#X connect 26 0 27 0;
+#X connect 27 0 19 2;
+#X connect 27 0 17 1;
 #X restore 299 173 pd ACELL;
 #X obj 718 57 CircuitPlayground 0;
 #X obj 30 173 s 0-CP;
@@ -365,26 +439,46 @@
 #X text 177 266 Todo- apply Steinhart-Hart thermistor equations;
 #X text 22 398 A5 - Luz 0-1;
 #X obj 241 312 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5971 1;
+-1 -1 0 1;
 #X obj 241 289 r 0-CP_A0;
 #X text 179 246 A0 - Temperature 0-1;
-#N canvas 364 154 589 396 CAP 0;
-#X obj 276 212 s 0-CP-SYSEX;
-#X text 328 168 0x40 Read a single capacitive input;
-#X msg 276 186 64 \$1;
-#X obj 193 29 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 7;
-#X text 337 127 (0 \, 1 \, 2 \, 3 \, 6 \, 9 \, 10 \, 12);
-#X obj 193 60 sel 4 5 6 7;
-#X floatatom 277 150 5 0 0 0 - - -, f 5;
-#X msg 140 105 6;
-#X msg 177 104 9;
-#X msg 213 101 10;
-#X msg 244 103 12;
-#X obj 292 336 s 0-CP-SYSEX;
-#X msg 292 296 64 0;
-#X obj 92 251 r 0-CP_CAP_REPLY 12;
-#X floatatom 79 305 5 0 0 0 - - -, f 5;
+#N canvas 362 153 927 558 CAP 0;
+#X obj 606 211 s 0-CP-SYSEX;
+#X text 658 167 0x40 Read a single capacitive input;
+#X msg 606 185 64 \$1;
+#X obj 523 28 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X text 667 126 (0 \, 1 \, 2 \, 3 \, 6 \, 9 \, 10 \, 12);
+#X obj 523 59 sel 4 5 6 7;
+#X floatatom 607 149 5 0 0 0 - - -, f 5;
+#X msg 470 104 6;
+#X msg 507 103 9;
+#X msg 543 100 10;
+#X msg 574 102 12;
+#X obj 513 435 r 0-CP_CAP_REPLY_12;
+#X floatatom 357 474 12 0 0 0 - - -, f 12;
+#X obj 357 440 r 0-CP_CAP_REPLY_10;
+#X floatatom 232 472 12 0 0 0 - - -, f 12;
+#X obj 232 438 r 0-CP_CAP_REPLY_9;
+#X floatatom 107 476 12 0 0 0 - - -, f 12;
+#X floatatom 509 410 12 0 0 0 - - -, f 12;
+#X floatatom 384 408 12 0 0 0 - - -, f 12;
+#X obj 107 442 r 0-CP_CAP_REPLY_6;
+#X obj 509 376 r 0-CP_CAP_REPLY_3;
+#X obj 384 374 r 0-CP_CAP_REPLY_2;
+#X floatatom 239 410 12 0 0 0 - - -, f 12;
+#X floatatom 114 408 12 0 0 0 - - -, f 12;
+#X obj 240 377 r 0-CP_CAP_REPLY_1;
+#X obj 114 373 r 0-CP_CAP_REPLY_0;
+#X obj 35 73 s 0-CP-SYSEX;
+#X msg 35 47 65 12;
+#X floatatom 492 505 12 0 0 0 - - -, f 12;
+#X obj 521 481 f;
+#X obj 572 477 metro 100;
+#X obj 642 473 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X text 87 29 0x40 Turn on continuous cap touch reads for the specified
+input (sent as a byte parameter).;
 #X connect 2 0 0 0;
 #X connect 3 0 5 0;
 #X connect 5 0 7 0;
@@ -397,34 +491,45 @@
 #X connect 8 0 6 0;
 #X connect 9 0 6 0;
 #X connect 10 0 6 0;
-#X connect 12 0 11 0;
-#X connect 13 0 14 0;
+#X connect 11 0 29 1;
+#X connect 13 0 12 0;
+#X connect 15 0 14 0;
+#X connect 19 0 16 0;
+#X connect 20 0 17 0;
+#X connect 21 0 18 0;
+#X connect 24 0 22 0;
+#X connect 25 0 23 0;
+#X connect 27 0 26 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 0;
 #X restore 365 141 pd CAP;
 #X msg 921 291 210 1 \, 244 19 0 \, 227 1;
 #X msg 752 385 210 1 \, 244 21 0 \, 227 1;
+#X text 529 137 0x50 SENSECOLOR;
 #X connect 0 0 1 0;
-#X connect 1 0 42 0;
-#X connect 2 0 35 0;
+#X connect 1 0 41 0;
+#X connect 2 0 34 0;
 #X connect 5 0 6 0;
-#X connect 6 0 43 0;
+#X connect 6 0 42 0;
 #X connect 7 0 8 0;
-#X connect 8 0 45 0;
-#X connect 12 0 36 0;
-#X connect 15 0 19 0;
-#X connect 17 0 52 0;
-#X connect 18 0 35 0;
-#X connect 19 0 38 0;
-#X connect 20 0 53 0;
-#X connect 25 0 26 0;
-#X connect 26 0 29 0;
-#X connect 27 0 32 0;
-#X connect 27 1 25 0;
-#X connect 29 0 25 1;
-#X connect 29 0 32 1;
-#X connect 30 0 31 0;
-#X connect 31 0 27 0;
-#X connect 41 0 30 0;
-#X connect 44 0 24 0;
-#X connect 49 0 48 0;
-#X connect 52 0 40 0;
-#X connect 53 0 39 0;
+#X connect 8 0 44 0;
+#X connect 12 0 35 0;
+#X connect 14 0 18 0;
+#X connect 16 0 51 0;
+#X connect 17 0 34 0;
+#X connect 18 0 37 0;
+#X connect 19 0 52 0;
+#X connect 24 0 25 0;
+#X connect 25 0 28 0;
+#X connect 26 0 31 0;
+#X connect 26 1 24 0;
+#X connect 28 0 24 1;
+#X connect 28 0 31 1;
+#X connect 29 0 30 0;
+#X connect 30 0 26 0;
+#X connect 40 0 29 0;
+#X connect 43 0 23 0;
+#X connect 48 0 47 0;
+#X connect 51 0 39 0;
+#X connect 52 0 38 0;
